@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState } from 'react';
 import styled from 'styled-components';
 import bgImage from '../Image/loginBG.jpg';
 import { useNavigate } from 'react-router-dom';
@@ -62,12 +63,14 @@ const Button = styled.button`
 `;
 
 const Login = () => {
-  const navigate = useNavigate();
-
+    const navigate = useNavigate();
+    const [username, setUsername] = useState('');
+  
   const handleSubmit = (event) => {
     event.preventDefault();
     // Redirect to home page
     navigate('/home');
+    navigate('/profile', { state: { username } });
   };
 
   return (
