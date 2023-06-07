@@ -38,12 +38,6 @@ const SubHeading = styled.p`
   color: #777;
 `;
 
-const Description = styled.p`
-  font-size: 1.2rem;
-  margin-bottom: 1rem;
-  color: #555;
-`;
-
 const LogoutButton = styled.button`
   padding: 0.5rem 1.5rem;
   background-color: #198754;
@@ -62,7 +56,7 @@ const LogoutButton = styled.button`
 const ProfilePage = () => {
   const navigate = useNavigate();
   const location = useLocation();
-  const username = location?.state?.username || '';
+  const { username, birthdate, certifications } = location?.state || {};
 
   const handleLogout = () => {
     // Perform logout logic here
@@ -76,13 +70,10 @@ const ProfilePage = () => {
     <Container>
       <ProfileImage src={dpImage} />
       <ProfileInfo>
-        <Heading>{username}</Heading>
-        <SubHeading>Location: New York, USA</SubHeading>
-        <SubHeading>Educational Attainment: Bachelor's Degree</SubHeading>
-        <SubHeading>Certification: Certified Professional</SubHeading>
-        <Description>
-          Courses: React, JavaScript, HTML/CSS, UI/UX Design
-        </Description>
+        <Heading>Name: {username}</Heading>
+        <SubHeading>Birthdate: {birthdate}</SubHeading>
+        <SubHeading>Certifications: {certifications}</SubHeading>
+        <SubHeading>Completed course/s:</SubHeading>
       </ProfileInfo>
       <LogoutButton onClick={handleLogout}>Logout</LogoutButton>
     </Container>

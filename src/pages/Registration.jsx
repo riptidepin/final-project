@@ -1,5 +1,4 @@
-import React from 'react';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import bgImage from '../Image/loginBG.jpg';
 import { useNavigate, Link } from 'react-router-dom';
@@ -20,7 +19,7 @@ const Form = styled.form`
   padding: 2rem;
   margin-bottom: 5vh;
   width: 70vh;
-  height: 60vh;
+  height: 80vh;
   background-color: #fff;
   border-radius: 0.5rem;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.3);
@@ -34,7 +33,7 @@ const Title = styled.h1`
 
 const Label = styled.label`
   font-size: 1.2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 0.5rem; /* Adjusted margin-bottom value */
 `;
 
 const Input = styled.input`
@@ -62,34 +61,42 @@ const Button = styled.button`
   }
 `;
 
-const RegistrationLink = styled(Link)`
-  font-size: 1.2rem;\
-  margin-top: 1rem;
-  color: #00bfa5; /* Green link color */
+const CertificationInput = styled(Input)`
+  margin-bottom: 2rem;
+`;
+
+const LoginLink = styled(Link)`
+  font-size: 1.2rem;
+  margin-top: 0.5rem; /* Adjusted margin-top value */
+  padding: 0.3rem 0; /* Adjusted padding value */
+  color: #198754;
   text-decoration: none;
 `;
 
-const SignupWrapper = styled.div`
-  margin-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const Login = () => {
+const Registration = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [birthdate, setBirthdate] = useState('');
+  const [certifications, setCertifications] = useState('');
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Redirect to profile page with username as state
-    navigate('/profile', { state: { username } });
+    // Redirect to profile page with registration details as state
+    navigate('/profile', {
+      state: {
+        username,
+        password,
+        birthdate,
+        certifications,
+      },
+    });
   };
 
   return (
     <Container>
       <Form onSubmit={handleSubmit}>
-        <Title>Login</Title>
+        <Title>Registration</Title>
         <Label htmlFor="username">Username</Label>
         <Input
           type="text"
@@ -100,15 +107,37 @@ const Login = () => {
           onChange={(e) => setUsername(e.target.value)}
         />
         <Label htmlFor="password">Password</Label>
-        <Input type="password" id="password" name="password" required />
+        <Input
+          type="password"
+          id="password"
+          name="password"
+          required
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <Label htmlFor="birthdate">Birthdate</Label>
+        <Input
+          type="date"
+          id="birthdate"
+          name="birthdate"
+          required
+          value={birthdate}
+          onChange={(e) => setBirthdate(e.target.value)}
+        />
+        <Label htmlFor="certifications">Certifications</Label>
+        <CertificationInput
+          type="text"
+          id="certifications"
+          name="certifications"
+          value={certifications}
+          onChange={(e) => setCertifications(e.target.value)}
+        />
         <Button type="submit">Submit</Button>
-        <SignupWrapper>
-          <Label>Need an account?</Label>
-          <RegistrationLink to="/registration">Sign up</RegistrationLink>
-        </SignupWrapper>
+        <Label>Already have an account?</Label>
+        <LoginLink to="/">Log in</LoginLink>
       </Form>
     </Container>
   );
 };
 
-export default Login;
+export default Registration;
