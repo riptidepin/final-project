@@ -63,13 +63,12 @@ const Button = styled.button`
 `;
 
 const Login = () => {
-    const navigate = useNavigate();
-    const [username, setUsername] = useState('');
-  
+  const navigate = useNavigate();
+  const [username, setUsername] = useState('');
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Redirect to home page
-    navigate('/home');
+    // Redirect to profile page with username as state
     navigate('/profile', { state: { username } });
   };
 
@@ -78,7 +77,14 @@ const Login = () => {
       <Form onSubmit={handleSubmit}>
         <Title>Login</Title>
         <Label htmlFor="username">Username</Label>
-        <Input type="text" id="username" name="username" required />
+        <Input
+          type="text"
+          id="username"
+          name="username"
+          required
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+        />
         <Label htmlFor="password">Password</Label>
         <Input type="password" id="password" name="password" required />
         <Button type="submit">Submit</Button>
@@ -88,3 +94,4 @@ const Login = () => {
 };
 
 export default Login;
+

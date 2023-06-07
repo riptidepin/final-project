@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { useLocation, useNavigate } from 'react-router-dom';
 import dpImage from '../Image/dp.jpg';
 
-
 const Container = styled.div`
   display: flex;
   flex-direction: column;
@@ -60,9 +59,11 @@ const LogoutButton = styled.button`
   }
 `;
 
-const ProfilePage = ({ username }) => {
-    const navigate = useNavigate();
-  
+const ProfilePage = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const username = location?.state?.username || '';
+
   const handleLogout = () => {
     // Perform logout logic here
     // For simplicity, let's assume it's just clearing the session or token
